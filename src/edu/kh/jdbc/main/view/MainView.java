@@ -74,6 +74,7 @@ public class MainView {
 					
 					System.out.print("\n 메뉴 선택 : ");
 					input = sc.nextInt();
+					sc.nextLine();
 					
 					System.out.println();
 					

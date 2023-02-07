@@ -33,6 +33,8 @@ public class BoardView {
 				// 	-> 작성 성공 시 상세 조회 수행
 				System.out.println("4. 게시글 검색");
 				// 4. 게시글 검색(제목, 내용, 제목+내용, 작성자)
+				System.out.println("5. 뒤로가기");
+				
 				System.out.print("\n 메뉴 선택 : ");
 				input = sc.nextInt();
 				sc.nextLine();
@@ -42,6 +44,7 @@ public class BoardView {
 				case 2 : selectBoard(); break;
 				case 3 : insertBoard(); break;
 				case 4 : searchBoard(); break;
+				case 5 : return;
 				default : System.out.println("메뉴에 작성된 번호만 입력해 주세요.");
 				}
 				
