@@ -12,33 +12,79 @@ public class MemberService {
 	private MemberDAO dao = new MemberDAO();
 	
 	
-	/** 내 정보 조회 서비스
+	/** 회원 목록 조회 서비스
 	 * 
 	 * @param loginMember
 	 * @return mem
 	 * @throws Exception
 	 */
-	public Member selectMyinfo(Member loginMember) throws Exception{
-
-		Connection conn = getConnection();
+	public List<Member> selectAll(Member loginMember) throws Exception{
 		
-		Member mem = dao.selectMyinfo(conn, loginMember);
+		Connection conn = getConnection(); // 커넥션 생성
 		
-		close(conn);
+		// DAO 메서드 호출 후 결과 반환 받기
+		List<Member> mem = dao.selectAll(conn);
+		
+		close(conn); // 커넥션 반환
 		
 		return mem;
 	}
 
 
-	public List<Member> selectAll(Member loginMember) throws Exception{
-		
+	/** 회원 정보 수정 서비스 
+	 * 
+	 * @param member
+	 * @return
+	 */
+	public int updateMember(Member member) throws Exception{
+		// 커넥션 생성
 		Connection conn = getConnection();
 		
-		List<Member> mem = dao.selectAll(conn, loginMember);
+		int result = dao.updateMember(conn, member);
+		
+		if(result > 0) commit(conn);
+		else			rollback(conn);
 		
 		close(conn);
 		
-		return mem;
+		return result;
+	}
+
+	/** 비밀번호 변경 서비스
+	 * 
+	 * @param currentPw
+	 * @param newPw1
+	 * @param memberNo
+	 * @return
+	 * @throws Exception
+	 */
+	public int updatePw(String currentPw, String newPw1, int memberNo) throws Exception{
+
+		Connection conn = getConnection();
+		
+		int result = dao.updatePw(conn, currentPw, newPw1, memberNo);
+		
+		if(result > 0) commit(conn);
+		else			rollback(conn);
+		
+		close(conn);
+		
+		return result;
+	}
+
+
+	public int secession(String memberPw, int memberNo) throws Exception{
+
+		Connection conn = getConnection();
+		
+		int result = dao.secession(conn, memberPw, memberNo);
+		
+		if(result > 0) commit(conn);
+		else			rollback(conn);
+		
+		close(conn);
+		
+		return result;
 	}
 
 }
